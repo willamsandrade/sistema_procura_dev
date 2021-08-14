@@ -8,7 +8,7 @@ class LangDAO {
         $this->conexao = new Conexao();
     }
 
-    private function executarBD($sql){
+    protected function executarBD($sql){
         return mysqli_query($this->conexao->getCon(), $sql);
     }
 

@@ -100,7 +100,12 @@
                                     </div>
 
                                     <div class="form-group mt-2">
-                                        <label class="label">Qual linguagem você programa?</label>
+                                        <label class="label mb-1">
+                                            Qual linguagem você programa?
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                Adicionar Programa
+                                            </a>
+                                        </label>
                                         <select type="text" class="form-control" name="idLang" id="idLang" required>
                                             <option value="">
                                                 -- Selecione uma Linguagem --
