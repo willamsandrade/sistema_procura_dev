@@ -102,7 +102,7 @@
                                     <div class="form-group mt-2">
                                         <label class="label mb-1">
                                             Qual linguagem você programa?
-                                            <a href="#" class="btn btn-primary btn-sm">
+                                            <a href="cad-lang.php" class="btn btn-primary btn-sm">
                                                 Adicionar Programa
                                             </a>
                                         </label>

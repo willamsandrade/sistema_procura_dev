@@ -14,8 +14,10 @@ class LangDAO {
 
     //Inserir no banco de dados
     public function inserir($Lang){
-        $sql = "INSERT INTO $this->tabela (descLang)
-                        VALUES ($Lang->getDescLang())";
+        $sql = "INSERT INTO ". $this->tabela ." (descLang)
+                        VALUES (
+                        '".$Lang->getDescLang()."'
+                        )";
         if ($this->executarBD($sql)) {
             return true;
         } else {

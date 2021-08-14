@@ -20,7 +20,7 @@ class DevDAO extends LangDAO{
     public function inserir($Dev){
         $crip = $this->crip($Dev->getSenhaDev());
 
-        $sql = "INSERT INTO dev 
+        $sql = "INSERT INTO ". $this->tabela ." 
                         (nomeDev, sobreDev, emailDev, senhaDev, githubDev, idLang)
                         VALUES  ( 
                                  '". $Dev->getNomeDev() ."',
