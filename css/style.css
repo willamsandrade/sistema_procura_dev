@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+/*==================== VARIABLES CSS ====================*/
+:root {
+
+    /*========== Cores ==========*/
+    --color-primaria: #0d6bf5;
+	--color-secundaria: #ffc107;
+ 
+}
+
+
+/*========== Index ==========*/
+*{
+    font-family: 'Poppins', sans-serif;
+}
+.conteudo{
+	color: #FFF;
+}
+.conteudo span{
+	animation: color-change 1s infinite;
+}
+.conteudo a{
+	font-size: 22px;
+}
+@keyframes color-change {
+	0% { color: #fff; }
+	50% { color: var(--color-primaria); }
+	100% { color: var(--color-secundaria); }
+}
+
+/*========== Cad-dev ==========*/
+.cadastro{
+	color: var(--color-primaria);
+}
+.action a{
+	font-size: 30px;
+	color: #000;
+	text-decoration: none;
+	transition: .5s;
+}
+.action a:hover{
+	padding-left: 5px;
+	color: var(--color-primaria);
+	transition: .5s;
+}
