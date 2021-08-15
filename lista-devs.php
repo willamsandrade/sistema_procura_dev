@@ -7,8 +7,13 @@ require_once "classes/DAO/DevDAO.class.php";
 //Criando Objetos
 $DevDAO = new DevDAO();
 
-//Recuperando as liguagens do banco
-$devs = $DevDAO->buscarDevs();
+//Recebendo consulta por linguagem
+if(isset($_GET['idLang'])){
+    $devs = $DevDAO->buscarDevs($_GET['idLang']);
+}else{
+    $devs = $DevDAO->buscarDevs();
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -68,24 +73,12 @@ $devs = $DevDAO->buscarDevs();
                         <td>
                             <a href="https://github.com/<?php echo $d['githubDev']; ?>"
                                target="_blank">
-                                <?php echo $d['githubDev']; ?>
+                                <i class="uil uil-github"></i><?php echo $d['githubDev']; ?>
                             </a>
                         </td>
                         <td>
-                            <a href="edit-lang.php?idLang=<?php echo $d['idDev']; ?>"
-                               class="btn btn-primary btn-sm">
-                                <i class="uil uil-edit-alt"></i> Editar
-                            </a>
-                            <button type="button"
-                                    class="btn btn-danger btn-sm" data-toggle="modal"
-                                    data-bs-target="#exampleModal"
-                                    data-bs-whatever="<?php echo $d['idDev']; ?>"
-                                    data-bs-whateverdesc="<?php echo $d['nomeDev']; ?>"
-                                    data-bs-toggle="modal">
-                                <i class="uil uil-trash-alt"></i> Excluir
-                            </button>
                             <a class="btn btn-secondary btn-sm">
-                                <i class="uil uil-search-alt"></i> Achar Dev
+                                <i class="uil uil-comment-lines"></i> Falar com Dev
                             </a>
                         </td>
                     </tr>
@@ -111,47 +104,6 @@ $devs = $DevDAO->buscarDevs();
     </footer>
 
 </div>
-
-
-<!-- Modal para exclusão da linguagem -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Excluir</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="fim-del-lang.php" method="post">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Id Linguagem</label>
-                        <input type="text"
-                               name="idLang"
-                               class="form-control"
-                               id="idLang"
-                               readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Linguagem</label>
-                        <input type="text"
-                               name="descLang"
-                               class="form-control"
-                               id="descLang"
-                               readonly>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit"
-                                class="btn btn-danger">Excluir</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal para exclusão da linguagem -->
 
 <!--==================== JAVASCRIPT ====================-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
@@ -194,30 +146,6 @@ $devs = $DevDAO->buscarDevs();
             }
         }
     } );
-</script>
-<script type="text/javascript">
-    var exampleModal = document.getElementById('exampleModal')
-    exampleModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        var recipient = button.getAttribute('data-bs-whatever')
-        var recipientDesc = button.getAttribute('data-bs-whateverdesc')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        var modalTitle = exampleModal.querySelector('.modal-title')
-        var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-        modalTitle.textContent = 'Excluir linguagem ' + recipientDesc
-        modalBodyInput.value = recipientDesc
-
-        var modal = $(this)
-        modal.find('#idLang').val(recipient)
-        modal.find('#descLang').val(recipientDesc)
-    })
-
 </script>
 </body>
 </html>

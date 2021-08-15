@@ -73,7 +73,8 @@ $langs = $LangDAO->buscar();
                                             data-bs-toggle="modal">
                                         <i class="uil uil-trash-alt"></i> Excluir
                                     </button>
-                                    <a class="btn btn-secondary btn-sm">
+                                    <a href="lista-devs.php?idLang=<?php echo $l['idLang'] ?>"
+                                       class="btn btn-secondary btn-sm">
                                         <i class="uil uil-search-alt"></i> Achar Dev
                                     </a>
                                 </td>
