@@ -2,7 +2,7 @@
 
     //Anexando arquivos
     require_once "classes/DAO/Conexao.class.php";
-    require_once "classes/DAO/DevDAO.php";
+    require_once "classes/DAO/DevDAO.class.php";
 
     //Criando Objetos
     $DevDAO = new DevDAO();
@@ -103,7 +103,7 @@
                                         <label class="label mb-1">
                                             Qual linguagem você programa?
                                             <a href="cad-lang.php" class="btn btn-primary btn-sm">
-                                                Adicionar Programa
+                                                Adicionar Linguagem
                                             </a>
                                         </label>
                                         <select type="text" class="form-control" name="idLang" id="idLang" required>

@@ -46,7 +46,7 @@
                                         <i class="uil uil-signin"></i> Entrar
                                     </a>
                                     <hr />
-                                    <a class="btn btn-outline-light">
+                                    <a href="lista-devs.php" class="btn btn-outline-light">
                                         <i class="uil uil-search-alt"></i> Achar Dev
                                     </a>
                                 </div>

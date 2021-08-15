@@ -2,26 +2,22 @@
 
 //Anexando arquivos
 require_once "classes/DAO/Conexao.class.php";
-require_once "classes/DAO/DevDAO.class.php";
-require_once "classes/entidades/Dev.class.php";
+require_once "classes/DAO/LangDAO.class.php";
+require_once "classes/entidades/Lang.class.php";
 
 //Criando Objetos
-$Dev = new Dev();
-$DevDAO = new DevDAO();
+$Lang = new Lang();
+$LangDAO = new LangDAO();
 
 //Recuperando dados do formulário
-$Dev->setNomeDev($_POST['nomeDev']);
-$Dev->setSobreDev($_POST['sobreDev']);
-$Dev->setEmailDev($_POST['nomeDev']);
-$Dev->setSenhaDev($_POST['senhaDev']);
-$Dev->setGithubDev($_POST['githubDev']);
-$Dev->setIdLang($_POST['idLang']);
+$Lang->setIdLang($_POST['idLang']);
+$Lang->setDescLang($_POST['descLang']);
 
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <title>Cadastrar Dev</title>
+    <title>Cadastrar Linguagem</title>
     <!-- Incluir configurações e metatags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,18 +40,18 @@ $Dev->setIdLang($_POST['idLang']);
         <div class="p-5">
 
             <?php
-              if( $DevDAO->inserir($Dev) ){
-            ?>
+            if( $LangDAO->deletar($Lang) ){
+                ?>
                 <div class="text-center">
                     <img src="img/check.png" class="img-fluid">
                     <br>
-                    <h3 class="text-success">Dev cadastrado com sucesso</h3>
+                    <h3 class="text-success">Linguagem excluida com sucesso</h3>
                 </div>
             <?php }else{ ?>
                 <div class="text-center mw-30">
                     <img src="img/error01.gif" width="250">
                     <br>
-                    <h3 class="text-danger">Dev não cadastrado</h3>
+                    <h3 class="text-danger">Linguagem não excluida, está sendo usada com um dev</h3>
                 </div>
             <?php } ?>
 
@@ -63,7 +59,7 @@ $Dev->setIdLang($_POST['idLang']);
     </main>
 
     <footer class="action text-center">
-        <a href="index.php">
+        <a href="lista-lang.php">
             <i class="uil uil-arrow-circle-left"></i>Voltar
         </a>
     </footer>
@@ -76,3 +72,4 @@ $Dev->setIdLang($_POST['idLang']);
         crossorigin="anonymous"></script>
 </body>
 </html>
+

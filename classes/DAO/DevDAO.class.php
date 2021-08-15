@@ -5,7 +5,7 @@ require_once "LangDAO.class.php";
 
 class DevDAO extends LangDAO{
 
-    private $tabela = "dev";
+    private $tabelaDev = "dev";
 
     /*
      *Método para criptografar senha
@@ -20,7 +20,7 @@ class DevDAO extends LangDAO{
     public function inserir($Dev){
         $crip = $this->crip($Dev->getSenhaDev());
 
-        $sql = "INSERT INTO ". $this->tabela ." 
+        $sql = "INSERT INTO ". $this->tabelaDev ." 
                         (nomeDev, sobreDev, emailDev, senhaDev, githubDev, idLang)
                         VALUES  ( 
                                  '". $Dev->getNomeDev() ."',
@@ -35,6 +35,23 @@ class DevDAO extends LangDAO{
         }else{
             return false;
         }
+    }
+
+    /*
+     *Método buscar devs
+     */
+    public function buscarDevs($idLang = 0){
+        if($idLang == 0){
+            $sql = "SELECT * FROM "
+                           .$this->tabelaDev.", ".$this->tabelaLang.
+                       " WHERE "
+                           .$this->tabelaLang.".idLang = ".$this->tabelaDev.".idLang";
+        }else{
+            $sql = "SELECT * FROM ".$this->tabelaDev.", ".$this->tabelaLang." 
+                       WHERE ".$this->tabelaLang.".idLang = ".$this->tabelaDev.".idLang 
+                           AND ".$this->tabelaDev.".idLang = $idLang";
+        }
+        return $this->executarBD($sql);
     }
 
 }

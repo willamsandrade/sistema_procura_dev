@@ -2,19 +2,26 @@
 
 //Anexando arquivos
 require_once "classes/DAO/Conexao.class.php";
-require_once "classes/DAO/DevDAO.class.php";
+require_once "classes/DAO/LangDAO.class.php";
+require_once "classes/entidades/Lang.class.php";
 
 //Criando Objetos
-$DevDAO = new DevDAO();
+$Lang = new Lang();
+$LangDAO = new LangDAO();
 
 //Recuperando as liguagens do banco
-$langs = $DevDAO->buscar();
+$lang = $LangDAO->dadosLang($_GET['idLang']);
+
+//Pegando os dados da linguagem
+foreach($lang as $l){
+    $Lang->setDescLang($l['descLang']);
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <title>Cadastrar Linguagem</title>
+    <title>Editar Linguagem</title>
     <!-- Incluir configurações e metatags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,8 +52,10 @@ $langs = $DevDAO->buscar();
 
                 <div class="col-md-6">
                     <div class="formulario">
-                        <h4 class="text-center">Cadastrar Linguagem</h4>
-                        <form action="fim-cad-lang.php" method="POST">
+
+                        <h4 class="text-center">Editar Linguagem</h4>
+
+                        <form action="fim-edit-lang.php" method="POST">
 
                             <div class="form-group">
                                 <label class="label">Linguagem</label>
@@ -54,25 +63,20 @@ $langs = $DevDAO->buscar();
                                        class="form-control"
                                        name="descLang"
                                        id="descLang"
+                                       value="<?php echo $Lang->getDescLang(); ?>"
                                        placeholder="Ex: PHP"
                                        required >
                             </div>
 
+                            <input type="hidden" name="idLang" value="<?php echo $_GET['idLang'] ?>">
+
                             <div class="form-group mt-3">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="uil uil-plus-circle"></i> CADASTRAR
+                                <button type="submit" class="btn btn-info">
+                                    <i class="uil uil-edit-alt"></i> EDITAR
                                 </button>
                             </div>
 
                         </form>
-
-                        <hr />
-
-                        <div class="d-grid gap-2 mt-5 mb-5">
-                            <a href="lista-lang.php" class="btn btn-outline-primary">
-                                <i class="uil uil-arrow"></i> Lista de Linguagens
-                            </a>
-                        </div>
 
                     </div>
                 </div>
@@ -83,7 +87,7 @@ $langs = $DevDAO->buscar();
     </main>
 
     <footer class="action text-center">
-        <a href="cad-dev.php">
+        <a href="lista-lang.php">
             <i class="uil uil-arrow-circle-left"></i>Voltar
         </a>
     </footer>
@@ -96,3 +100,4 @@ $langs = $DevDAO->buscar();
         crossorigin="anonymous"></script>
 </body>
 </html>
+

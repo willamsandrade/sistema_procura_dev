@@ -2,7 +2,7 @@
 class LangDAO {
 
     private $conexao;
-    private $tabela = "lang";
+    protected $tabelaLang = "lang";
 
     public function __construct(){
         $this->conexao = new Conexao();
@@ -14,7 +14,7 @@ class LangDAO {
 
     //Inserir no banco de dados
     public function inserir($Lang){
-        $sql = "INSERT INTO ". $this->tabela ." (descLang)
+        $sql = "INSERT INTO ". $this->tabelaLang ." (descLang)
                         VALUES (
                         '".$Lang->getDescLang()."'
                         )";
@@ -30,9 +30,9 @@ class LangDAO {
     //Exceto a do idLang enviado
     public function buscar($idLang = 0){
         if ($idLang == 0){
-            $sql = "SELECT * FROM $this->tabela ORDER BY descLang ASC";
+            $sql = "SELECT * FROM $this->tabelaLang ORDER BY descLang ASC";
         }else{
-            $sql = "SELECT * FROM $this->tabela
+            $sql = "SELECT * FROM $this->tabelaLang
                                 WHERE idLang <> $idLang 
                                     ORDER BY descLang ASC";
         }
@@ -40,21 +40,26 @@ class LangDAO {
     }
 
     //Exibir dados de uma linguagem escolhida por id
-    public function dadosLang($idTipo){
-        $sql = "SELECT * FROM $this->tabela WHERE idTipo = $idTipo";
+    public function dadosLang($idLang){
+        $sql = "SELECT * FROM ". $this->tabelaLang ." WHERE idLang = $idLang";
         return $this->executarBD( $sql ); //retornar os dados do tipo
     }
 
     //Atualizar Linguagem no banco de dados
     public function atualizar($Lang){
-        $sql = "UPDATE $this->tabela
-                       SET descLang = $Lang->getDescLang()
-                         WHERE idLang = $Lang->getIdLang()";
+        $sql = "UPDATE ".$this->tabelaLang." 
+                        SET descLang = '".$Lang->getDescLang()."' 
+                           WHERE idLang = " . $Lang->getIdLang();
+        if ($this->executarBD($sql)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    //Deletar Tipo no banco de dados
+    //Deletar Linguagem no banco de dados
     public function deletar($Lang){
-        $sql = "DELETE FROM $this->labela WHERE idTipo = $Lang->getIdLang()";
+        $sql = "DELETE FROM ".$this->tabelaLang." WHERE idLang = " . $Lang->getIdLang();
         if( $this->executarBD($sql) ){
             return true;
         }else{
