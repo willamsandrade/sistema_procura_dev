@@ -42,7 +42,8 @@
                                     <a href="cad-dev.php" class="btn btn-outline-warning">
                                         <i class="uil uil-user-plus"></i> Cadastrar
                                     </a>
-                                    <a class="btn btn-outline-primary">
+                                    <a href="login.php"
+                                            class="btn btn-outline-primary">
                                         <i class="uil uil-signin"></i> Entrar
                                     </a>
                                     <hr />

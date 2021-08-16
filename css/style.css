@@ -43,3 +43,8 @@
 	color: var(--color-primaria);
 	transition: .5s;
 }
+
+/*========== Restrito ==========*/
+.icon-restrito{
+	font-size: 40px;
+}

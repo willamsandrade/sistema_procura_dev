@@ -54,4 +54,42 @@ class DevDAO extends LangDAO{
         return $this->executarBD($sql);
     }
 
+    /*
+     *Método buscar dados dev por id
+     */
+    public function dadosDev($idDev){
+        $sql = "SELECT * FROM "
+                    .$this->tabelaDev.", ".$this->tabelaLang.
+                        " WHERE "
+                            .$this->tabelaLang.".idLang = ".$this->tabelaDev.".idLang 
+                                AND ".$this->tabelaDev.".idDev = $idDev";
+        return $this->executarBD($sql);
+    }
+
+    /*
+     *Método buscar dados dev por email
+     */
+    public function dadosDevEmail($emailDev){
+        $sql = "SELECT * FROM "
+            .$this->tabelaDev.", ".$this->tabelaLang.
+            " WHERE "
+            .$this->tabelaLang.".idLang = ".$this->tabelaDev.".idLang 
+                                AND ".$this->tabelaDev.".emailDev = '$emailDev'";
+        return $this->executarBD($sql);
+    }
+
+    /*
+     * Método para logar no sistema
+     */
+    public function logar($emailDev, $senhaDev){ //Logar no sistema
+        $crip =  $this->crip($senhaDev);
+        $sql = "SELECT * FROM ".$this->tabelaDev." 
+                    WHERE emailDev = '$emailDev' AND senhaDev = '$crip'";
+        if( mysqli_num_rows( $this->executarBD( $sql ) ) > 0 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

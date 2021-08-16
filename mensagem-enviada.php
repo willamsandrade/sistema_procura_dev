@@ -1,21 +1,20 @@
 <?php
+    //Anexando arquivos
+    require_once "classes/DAO/Conexao.class.php";
+    require_once "classes/DAO/MensagemDAO.php";
+    require_once "classes/entidades/Mensagem.class.php";
 
-//Anexando arquivos
-require_once "classes/DAO/Conexao.class.php";
-require_once "classes/DAO/DevDAO.class.php";
-require_once "classes/entidades/Dev.class.php";
+    //Criar Objetos
+    $MensagemDAO = new MensagemDAO();
+    $Mensagem = new Mensagem();
 
-//Criando Objetos
-$Dev = new Dev();
-$DevDAO = new DevDAO();
-
-//Recuperando dados do formulário
-$Dev->setNomeDev($_POST['nomeDev']);
-$Dev->setSobreDev($_POST['sobreDev']);
-$Dev->setEmailDev($_POST['emailDev']);
-$Dev->setSenhaDev($_POST['senhaDev']);
-$Dev->setGithubDev($_POST['githubDev']);
-$Dev->setIdLang($_POST['idLang']);
+    //Recuperar Dados do Formulário
+    $Mensagem->setIdDev($_POST['idDev']);
+    $Mensagem->setNomeMensagem($_POST['nomeMensagem']);
+    $Mensagem->setEmailMensagem($_POST['emailMensagem']);
+    $Mensagem->setWhatsappMensagem($_POST['whatsappMensagem']);
+    $Mensagem->setMensagem($_POST['mensagem']);
+    $Mensagem->setControleMensagem($_POST['controleMensagem']);
 
 ?>
 <!DOCTYPE html>
@@ -44,18 +43,18 @@ $Dev->setIdLang($_POST['idLang']);
         <div class="p-5">
 
             <?php
-              if( $DevDAO->inserir($Dev) ){
-            ?>
+            if( $MensagemDAO->inserir($Mensagem) ){
+                ?>
                 <div class="text-center">
                     <img src="img/check.png" class="img-fluid">
                     <br>
-                    <h3 class="text-success">Dev cadastrado com sucesso</h3>
+                    <h3 class="text-success">Mensagem enviada com sucesso</h3>
                 </div>
             <?php }else{ ?>
                 <div class="text-center mw-30">
                     <img src="img/error01.gif" width="250">
                     <br>
-                    <h3 class="text-danger">Dev não cadastrado</h3>
+                    <h3 class="text-danger">Não é possível mais enviar mensagem</h3>
                 </div>
             <?php } ?>
 
@@ -63,7 +62,7 @@ $Dev->setIdLang($_POST['idLang']);
     </main>
 
     <footer class="action text-center">
-        <a href="index.php">
+        <a href="lista-devs.php">
             <i class="uil uil-arrow-circle-left"></i>Voltar
         </a>
     </footer>

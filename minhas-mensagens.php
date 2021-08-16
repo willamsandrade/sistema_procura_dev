@@ -1,25 +1,18 @@
 <?php
+    //Proteção e dados do dev
+    require_once "devLogado.php";
+    require_once "classes/DAO/MensagemDAO.php";
+    require_once "classes/entidades/Mensagem.class.php";
 
-//Anexando arquivos
-require_once "classes/DAO/Conexao.class.php";
-require_once "classes/DAO/DevDAO.class.php";
+    //Criar objetos
+    $MensagemDAO = new MensagemDAO();
 
-//Criando Objetos
-$DevDAO = new DevDAO();
-
-//Recebendo consulta por linguagem
-if(isset($_GET['idLang'])){
-    $devs = $DevDAO->buscarDevs($_GET['idLang']);
-}else{
-    $devs = $DevDAO->buscarDevs();
-}
-
-
+    $mensagens = $MensagemDAO->lerTodos(ID_DEV);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <title>Lista de Devs</title>
+    <title>Minhas Mensagens</title>
     <!-- Incluir configurações e metatags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,53 +38,58 @@ if(isset($_GET['idLang'])){
 
 <div class="container">
 
-    <main class="cadastro mt-3">
+    <header class="mt-5 text-center">
+        <img src="img/procura-dev.png">
+        <h2>
+            Minhas
+            <strong class="text-primary">
+                Mensagens
+            </strong>
+        </h2>
+    </header>
+
+    <main class="mt-3">
         <div class="p-1">
-
-            <div class="text-center mb-2">
-                <img src="img/devs.png" />
-            </div>
-
             <hr />
 
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Linguagem</th>
-                    <th>email</th>
-                    <th>Github</th>
-                    <th>Ações</th>
+                    <th>Nome Contato</th>
+                    <th>Email</th>
+                    <th>Whatsapp</th>
+                    <th>Mensagem</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($devs as $d){ ?>
+                <?php foreach ($mensagens as $d){ ?>
                     <tr>
-                        <td><?php echo $d['nomeDev'] . " " . $d['sobreDev']; ?></td>
-                        <td><?php echo $d['descLang']; ?></td>
-                        <td><?php echo $d['emailDev']; ?></td>
+                        <td><?php echo $d['nomeMensagem']; ?></td>
+                        <td><?php echo $d['emailMensagem']; ?></td>
+                        <td><?php echo $d['whatsappMensagem']; ?></td>
+                        <td><?php echo $d['mensagem']; ?></td>
                         <td>
-                            <a href="https://github.com/<?php echo $d['githubDev']; ?>"
-                               target="_blank">
-                                <i class="uil uil-github"></i><?php echo $d['githubDev']; ?>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="enviar-mensagem.php?idDev=<?php echo $d['idDev']; ?>"
-                                    class="btn btn-secondary btn-sm">
-                                <i class="uil uil-comment-lines"></i> Falar com Dev
-                            </a>
+                            <?php
+                                if($d['statusMensagem'] == 0){
+                            ?>
+                                    <i class="uil uil-comment"></i> Não lida
+                            <?php }else{ ?>
+                                    <span class="text-success">
+                                        <i class="uil uil-comment-verify"></i> Lida
+                                    </span>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Nome</th>
-                    <th>Linguagem</th>
-                    <th>email</th>
-                    <th>Github</th>
-                    <th>Ações</th>
+                    <th>Nome Contato</th>
+                    <th>Email</th>
+                    <th>Whatsapp</th>
+                    <th>Mensagem</th>
+                    <th>Status</th>
                 </tr>
                 </tfoot>
             </table>
@@ -99,12 +97,16 @@ if(isset($_GET['idLang'])){
     </main>
 
     <footer class="action text-center">
-        <a href="index.php">
+        <a href="restrito.php">
             <i class="uil uil-arrow-circle-left"></i>Voltar
         </a>
     </footer>
 
 </div>
+
+<?php
+    $MensagemDAO->mudarStatus(ID_DEV);
+?>
 
 <!--==================== JAVASCRIPT ====================-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
@@ -150,5 +152,6 @@ if(isset($_GET['idLang'])){
 </script>
 </body>
 </html>
+
 
 
