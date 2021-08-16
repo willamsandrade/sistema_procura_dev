@@ -45,7 +45,7 @@ class MensagemDAO{
      * Método ler todas as mensagens do dev
      */
     public function lerTodos($idDev){
-        $sql = "SELECT * FROM ".$this->tabelaMensagem." WHERE idDev = $idDev";
+        $sql = "SELECT * FROM ".$this->tabelaMensagem." WHERE idDev = $idDev ORDER BY idMensagem DESC";
         return $this->executarBD($sql);
     }
 
