@@ -39,7 +39,7 @@
 <div class="container">
 
     <header class="mt-5 text-center">
-        <img src="img/procura-dev.png">
+        <img src="img/procura-dev.png" />
         <h2>
             Olá dev
             <strong class="text-primary">
@@ -84,12 +84,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="d-grid gap-2 mt-5 mb-5">
-                        <a href="#"
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                            class="btn btn-outline-primary">
                             <i class="uil uil-times-square icon-restrito"></i>
                             <br />
                             REMOVER CONTA
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -102,6 +102,34 @@
         </a>
     </footer>
 
+</div>
+
+<!-- Modal Excluir -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Conta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Olá, <?php echo NOME_DEV . " " . SOBRE_DEV; ?>.
+                Após clicar no botão excluir conta, não será
+                possível recuperar seus dados.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <form action="deletar-conta.php" method="post">
+                    <input type="hidden" name="idDev" value="<?php echo ID_DEV; ?>">
+                    <button type="submit" class="btn btn-danger">
+                        Excluir Conta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--==================== JAVASCRIPT ====================-->

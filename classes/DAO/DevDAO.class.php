@@ -125,5 +125,17 @@ class DevDAO extends LangDAO{
         }
     }
 
+    /*
+     * Método deletar dados do dev
+     */
+    public function deletar($idDev){
+        $sql = "DELETE FROM ".$this->tabelaDev." WHERE idDev = $idDev";
+        if( $this->executarBD($sql) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 }

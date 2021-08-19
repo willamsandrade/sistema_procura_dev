@@ -115,6 +115,7 @@ foreach ($dados as $d){
                                         name="mensagem"
                                         class="form-control"
                                         placeholder="Digite sua mensagem..."
+                                        required
                                 ></textarea>
                             </div>
 
