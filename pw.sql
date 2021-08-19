@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Ago-2021 às 22:32
+-- Tempo de geração: 19-Ago-2021 às 22:51
 -- Versão do servidor: 10.4.19-MariaDB
 -- versão do PHP: 7.3.28
 
@@ -36,13 +36,6 @@ CREATE TABLE `dev` (
   `githubDev` varchar(150) NOT NULL,
   `idLang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `dev`
---
-
-INSERT INTO `dev` (`idDev`, `nomeDev`, `sobreDev`, `emailDev`, `senhaDev`, `githubDev`, `idLang`) VALUES
-(84, 'Willams', 'Silva Andrade', 'wsa.juazeiro@gmail.com', '83683ced7fd9379cbbd1c206e99b7b15835e2362', 'willamsandrade', 1);
 
 --
 -- Acionadores `dev`
@@ -88,13 +81,6 @@ CREATE TABLE `mensagem` (
   `statusMensagem` tinyint(1) NOT NULL,
   `controleMensagem` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `mensagem`
---
-
-INSERT INTO `mensagem` (`idMensagem`, `idDev`, `nomeMensagem`, `emailMensagem`, `whatsappMensagem`, `mensagem`, `statusMensagem`, `controleMensagem`) VALUES
-(30, 84, 'João', 'joao@joao.com', '(45) 45454-5454', 'asdfdsaf', 0, '1629404792');
 
 --
 -- Índices para tabelas despejadas
