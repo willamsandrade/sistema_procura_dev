@@ -3,7 +3,6 @@ Sistema em PHP para cadastro de Desenvolvedores. Linhuagem utilizada PHP com Pro
 
 <p>Sistema desenvolvido por Willams Andrade para ensino da disciplina de Programação WEB</p>
 <img src="img/tela.png">
-<br>
 <h3>Recursos Utilizados</h3>
 <ul>
     <li>
