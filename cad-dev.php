@@ -84,8 +84,8 @@
                                         <input type="password" 
                                             class="form-control" 
                                             name="senhaDev" 
-                                            id="senhaDev" 
-                                            placeholder="Ex: Willams"
+                                            id="senhaDev"
+                                            placeholder="******"
                                             required >
                                     </div>
 

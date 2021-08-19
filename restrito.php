@@ -1,6 +1,13 @@
 <?php
     //Proteção e dados do dev
     require_once "devLogado.php";
+    require_once "classes/DAO/MensagemDAO.php";
+
+    //Criar Objeto
+    $MensagemDAO = new MensagemDAO();
+
+    //Ver quantidade de novas mensagens
+    $qtdMensagens = $MensagemDAO->qtdNovasMensagens(ID_DEV);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -39,6 +46,17 @@
                 <?php echo NOME_DEV . " " . SOBRE_DEV; ?>
             </strong>
         </h2>
+        <?php if($qtdMensagens > 0){ ?>
+            <a href="minhas-mensagens.php" class="btn btn-primary position-relative">
+                <?php echo $qtdMensagens > 1 ? "Novas Mensagens" : "Nova Mensagem"; ?>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <?php echo $qtdMensagens; ?>
+                <span class="visually-hidden">
+                    Mensagens
+                </span>
+            </span>
+            </a>
+        <?php } ?>
     </header>
 
     <main class="mt-3">
@@ -56,7 +74,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="d-grid gap-2 mt-5 mb-5">
-                        <a href="#"
+                        <a href="meu-perfil.php"
                            class="btn btn-outline-primary">
                             <i class="uil uil-chat-bubble-user icon-restrito"></i>
                             <br />

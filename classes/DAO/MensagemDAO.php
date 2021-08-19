@@ -61,6 +61,14 @@ class MensagemDAO{
         } else {
             return false;
         }
+    }
 
+    /*
+     * Método para contar qtd de novas mensagens
+     */
+    public function qtdNovasMensagens($idDev){ //Logar no sistema
+        $sql = "SELECT * FROM ".$this->tabelaMensagem." 
+                    WHERE idDev = $idDev AND statusMensagem = 0";
+        return mysqli_num_rows( $this->executarBD($sql) );
     }
 }

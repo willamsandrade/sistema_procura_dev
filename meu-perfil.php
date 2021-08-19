@@ -4,12 +4,57 @@ require_once "devLogado.php";
 //Anexando arquivos
 require_once "classes/DAO/Conexao.class.php";
 require_once "classes/DAO/DevDAO.class.php";
+require_once "classes/entidades/Dev.class.php";
 
 //Criando Objetos
 $DevDAO = new DevDAO();
+$Dev = new Dev();
 
-//Recuperando as liguagens do banco
-$langs = $DevDAO->buscar();
+//Se o usuário for editar
+if(isset($_GET['edit'])){
+    $Dev->setIdDev($_POST['idDev']);
+    $Dev->setNomeDev($_POST['nomeDev']);
+    $Dev->setSobreDev($_POST['sobreDev']);
+    $Dev->setEmailDev($_POST['emailDev']);
+    $Dev->setGithubDev($_POST['githubDev']);
+    $Dev->setIdLang($_POST['idLang']);
+    if( $DevDAO->atualizar($Dev) ){
+        $_SESSION["emailDev"] = $Dev->getEmailDev();
+        $feed = "Cadastro atualizado com sucesso";
+        $tipo = "alert-success";
+    }else{
+        $feed = "Erro!! Cadastro não atualizado ou email já existe!!";
+        $tipo = "alert-danger";
+    }
+}
+
+//Se o usuário modificar senha
+if(isset($_GET['senha'])){
+    $Dev->setIdDev($_POST['idDev']);
+    $Dev->setSenhaDev($_POST['senhaDev']);
+    if( $DevDAO->modificarSenha($Dev) ){
+        $_SESSION["senhaDev"] = $Dev->getSenhaDev();
+        $feed = "Senha, alterada com sucesso";
+        $tipo = "alert-success";
+    }else{
+        $feed = "Não foi possível alterar senha!!";
+        $tipo = "alert-danger";
+    }
+}
+
+//Recuperando dados do Dev
+$perfil = $DevDAO->dadosDev(ID_DEV);
+foreach ($perfil as $p){
+    $Dev->setNomeDev($p['nomeDev']);
+    $Dev->setSobreDev($p['sobreDev']);
+    $Dev->setEmailDev($p['emailDev']);
+    $Dev->setGithubDev($p['githubDev']);
+    $Dev->setIdLang($p['idLang']);
+    $descLang = $p['descLang'];
+}
+
+$langs = $DevDAO->buscar($Dev->getIdLang());
+
 
 ?>
 <!DOCTYPE html>
@@ -36,18 +81,21 @@ $langs = $DevDAO->buscar();
 
     <main class="cadastro mt-3">
         <div class="p-1">
+
+            <h1 class="text-center">Meu Perfil</h1>
+
+            <?php if(isset($_GET['edit']) || isset($_GET['senha'])){ ?>
+                <div class="alert <?php echo $tipo; ?>" role="alert">
+                    <?php echo $feed; ?>
+                </div>
+            <?php } ?>
+
             <div class="row">
 
                 <div class="col-md-6">
-                    <div class="p-3">
-                        <img src="img/cadastro.png" class="img-fluid">
-                    </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="formulario">
-                        <h4 class="text-center">Cadastre-se</h4>
-                        <form action="fim-cad-dev.php" method="POST">
+
+                        <form action="meu-perfil.php?edit=ok" method="POST">
 
                             <div class="form-group">
                                 <label class="label">Nome</label>
@@ -55,6 +103,7 @@ $langs = $DevDAO->buscar();
                                        class="form-control"
                                        name="nomeDev"
                                        id="nomeDev"
+                                       value="<?php echo $Dev->getNomeDev(); ?>"
                                        placeholder="Ex: Willams"
                                        maxlength="25"
                                        required >
@@ -66,6 +115,7 @@ $langs = $DevDAO->buscar();
                                        class="form-control"
                                        name="sobreDev"
                                        id="sobreDev"
+                                       value="<?php echo $Dev->getSobreDev(); ?>"
                                        placeholder="Ex: Silva Andrade"
                                        required >
                             </div>
@@ -75,18 +125,9 @@ $langs = $DevDAO->buscar();
                                 <input type="email"
                                        class="form-control"
                                        name="emailDev"
+                                       value="<?php echo $Dev->getEmailDev(); ?>"
                                        id="emailDev"
                                        placeholder="Ex: dev@demo.com"
-                                       required >
-                            </div>
-
-                            <div class="form-group mt-2">
-                                <label class="label">Senha</label>
-                                <input type="password"
-                                       class="form-control"
-                                       name="senhaDev"
-                                       id="senhaDev"
-                                       placeholder="Ex: Willams"
                                        required >
                             </div>
 
@@ -96,6 +137,7 @@ $langs = $DevDAO->buscar();
                                        class="form-control"
                                        name="githubDev"
                                        id="githubDev"
+                                       value="<?php echo $Dev->getGithubDev(); ?>"
                                        placeholder="Ex: willamsandrade"
                                        required >
                             </div>
@@ -103,13 +145,10 @@ $langs = $DevDAO->buscar();
                             <div class="form-group mt-2">
                                 <label class="label mb-1">
                                     Qual linguagem você programa?
-                                    <a href="cad-lang.php" class="btn btn-primary btn-sm">
-                                        Adicionar Linguagem
-                                    </a>
                                 </label>
                                 <select type="text" class="form-control" name="idLang" id="idLang" required>
-                                    <option value="">
-                                        -- Selecione uma Linguagem --
+                                    <option value="<?php echo $Dev->getIdLang(); ?>">
+                                        <?php echo $descLang; ?>
                                     </option>
                                     <?php
                                     foreach ($langs as $l) {
@@ -123,9 +162,11 @@ $langs = $DevDAO->buscar();
                                 </select>
                             </div>
 
+                            <input type="hidden" name="idDev" value="<?php echo ID_DEV; ?>">
+
                             <div class="form-group mt-3">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="uil uil-plus-circle"></i> CADASTRAR
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="uil uil-edit-alt"></i> EDITAR
                                 </button>
                             </div>
 
@@ -134,13 +175,43 @@ $langs = $DevDAO->buscar();
                     </div>
                 </div>
 
+                <div class="col-md-6">
+                    <div class="p-3">
+
+                        <h4 class="text-dark">Alterar Senha</h4>
+
+                        <form action="meu-perfil.php?senha=ok" method="POST">
+                            <div class="form-group mt-2">
+                                <label class="label">Nova Senha</label>
+                                <input type="password"
+                                       class="form-control"
+                                       name="senhaDev"
+                                       id="senhaDev"
+                                       placeholder="******"
+                                       required >
+                            </div>
+
+                            <input type="hidden" name="idDev" value="<?php echo ID_DEV; ?>">
+
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="uil uil-key-skeleton"></i> MUDAR SENHA
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
     </main>
 
+    <br />
+
     <footer class="action text-center">
-        <a href="index.php">
+        <a href="restrito.php">
             <i class="uil uil-arrow-circle-left"></i>Voltar
         </a>
     </footer>

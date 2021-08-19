@@ -92,4 +92,38 @@ class DevDAO extends LangDAO{
         }
     }
 
+    /*
+     * Método atualizar dados do dev
+     */
+    public function atualizar($Dev){
+        $sql = "UPDATE ".$this->tabelaDev." 
+                     SET nomeDev = '".$Dev->getNomeDev()."', 
+                         sobreDev = '".$Dev->getSobreDev()."', 
+                         emailDev = '".$Dev->getEmailDev()."', 
+                         githubDev = '".$Dev->getGithubDev()."', 
+                         idLang = ".$Dev->getIdLang()." 
+                            WHERE idDev = ".$Dev->getIdDev();
+        if( $this->executarBD($sql) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*
+     * Método atualizar dados do dev
+     */
+    public function modificarSenha($Dev){
+        $crip = $this->crip($Dev->getSenhaDev());
+        $sql = "UPDATE ".$this->tabelaDev." 
+                     SET senhaDev = '".$crip."' 
+                            WHERE idDev = ".$Dev->getIdDev();
+        if( $this->executarBD($sql) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
