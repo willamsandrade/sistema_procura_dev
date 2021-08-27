@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * Classe utilizada para manipulação de dados
+ * das mensagens para os devs
+ */
+
 class Mensagem{
     private $idMensagem;
     private $idDev;
