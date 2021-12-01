@@ -45,7 +45,7 @@ $Lang->setDescLang($_POST['descLang']);
                 <div class="text-center">
                     <img src="img/check.png" class="img-fluid">
                     <br>
-                    <h3 class="text-success">Linguagem editado com sucesso</h3>
+                    <h3 class="text-success">Linguagem editada com sucesso</h3>
                 </div>
             <?php }else{ ?>
                 <div class="text-center mw-30">
