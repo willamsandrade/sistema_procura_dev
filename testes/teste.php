@@ -8,7 +8,7 @@
 
  $Lang->setDescLang('ReactJS'); //Enviando uma informação
 
- $LangDAO->inserir($Lang);
+ $LangDAO->inserir($Lang);//Teste 
 
 
  echo "Testes na classe Linguagens<br>";

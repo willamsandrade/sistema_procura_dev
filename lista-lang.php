@@ -206,6 +206,7 @@ $langs = $LangDAO->buscar();
             })
 
         </script>
+        
     </body>
 </html>
 

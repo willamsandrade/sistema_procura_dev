@@ -1,5 +1,5 @@
 <?php 
- require_once '../classes//DAO/Conexao.class.php';//Anexar arquivo Conexão
+ require_once '../classes/DAO/Conexao.class.php';//Anexar arquivo Conexão
  require_once '../classes/entidades/Dev.class.php';//Anexar o arquivo Tipo
  require_once '../classes/DAO/DevDAO.class.php';//Anexar o arquivo Tipo
 
@@ -27,3 +27,5 @@
  echo"<strong> Senha: </strong>" . $Dev->getSenhaDev() . "<br>";
  echo"<strong> Id_linguagem: </strong>" . $Dev->getIdLang() . "<br>";
  ?>
+
+ 
